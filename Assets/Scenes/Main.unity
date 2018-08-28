@@ -2127,6 +2127,16 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: shaftManager
+      value: 
+      objectReference: {fileID: 250484522}
+    - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: NextShaftTransform
+      value: 
+      objectReference: {fileID: 1590986063}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
   m_IsPrefabParent: 0
@@ -6778,6 +6788,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!4 &1590986063 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4560834781282996, guid: 25a367ce9dddbf546b289a5e6642c60a,
+    type: 2}
+  m_PrefabInternal: {fileID: 465705272}
 --- !u!1 &1591758050
 GameObject:
   m_ObjectHideFlags: 0

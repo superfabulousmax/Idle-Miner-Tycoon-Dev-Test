@@ -5,15 +5,18 @@ public class Shaft : MonoBehaviour
     [SerializeField] private Node elevatorCollectNode;
     [SerializeField] private BuyShaftUI BuyShaftUI;
     [SerializeField] private UpgradeActorUI UpgradeActorUI;
+    [SerializeField] private ShaftManager shaftManager;
 
-    public Transform NextShaftTransform { get; set; }
-    public ShaftManager Manager { get; private set; }
+    public Transform NextShaftTransform;
+    public ShaftManager Manager
+    {
+        get { return shaftManager; }
+    }
 
-    public void Initialize(Actor elevator, ShaftManager shaftManager, FinanceManager financeManager, int shaftsAmount)
+    public void Initialize(Actor elevator, FinanceManager financeManager, int shaftsAmount)
     {
         elevator.AddNode(elevatorCollectNode);
         
-        Manager = shaftManager;
         BuyShaftUI.FinanceManager = financeManager;
         UpgradeActorUI.FinanceManager = financeManager;
         UpgradeActorUI.ShaftManager = shaftManager;

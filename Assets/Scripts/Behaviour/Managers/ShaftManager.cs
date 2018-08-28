@@ -19,7 +19,7 @@ public class ShaftManager : MonoBehaviour
         
         var shaft = newObject.GetComponent<Shaft>();
         Shafts.Add(shaft);
-        shaft.Initialize(elevator, this, financeManager, Shafts.Count);
+        shaft.Initialize(elevator, financeManager, Shafts.Count);
 
         financeManager.UpdateMoney(-financeManager.NextShaftPrice);
         financeManager.NextShaftPrice *= settings.ShaftIncrement;

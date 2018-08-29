@@ -223,9 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e874daf0b61ec774fb2c8a69fdad9204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _verticalLimit: {x: 0, y: 0}
-  _tooltip: {fileID: 0}
+  _speed: 20
+  _verticalLimit: {x: -60, y: 0}
+  _tooltip: {fileID: 221014134}
 --- !u!1 &99968311
 GameObject:
   m_ObjectHideFlags: 0

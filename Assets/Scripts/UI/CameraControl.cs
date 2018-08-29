@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private Vector2 _verticalLimit;
-    [SerializeField] private Text _tooltip;
+    [SerializeField] private GameObject _tooltip;
 
     private const float TooltipDelay = 3f;
 
@@ -35,6 +35,6 @@ public class CameraControl : MonoBehaviour
     private IEnumerator DisableTooltip()
     {
         yield return new WaitForSeconds(TooltipDelay);
-        _tooltip.gameObject.SetActive(false);
+        _tooltip.SetActive(false);
     }
 }

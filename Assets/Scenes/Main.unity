@@ -2032,6 +2032,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114571073995619396, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: _financeFinanceManager
+      value: 
+      objectReference: {fileID: 250484524}
     - target: {fileID: 114378204961917682, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: _financeManager
@@ -2039,64 +2044,14 @@ Prefab:
       objectReference: {fileID: 250484524}
     - target: {fileID: 114378204961917682, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
-      propertyPath: _shaftManager
+      propertyPath: ShaftManager
       value: 
       objectReference: {fileID: 250484522}
-    - target: {fileID: 114571073995619396, guid: 25a367ce9dddbf546b289a5e6642c60a,
+    - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
-      propertyPath: _financeFinanceManager
+      propertyPath: ShaftManager
       value: 
-      objectReference: {fileID: 250484524}
-    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114961847829629112, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114961847829629112, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114381844740129796, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114381844740129796, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 250484522}
     - target: {fileID: 114862231387159720, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -2127,16 +2082,56 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
+    - target: {fileID: 114381844740129796, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
-      propertyPath: shaftManager
-      value: 
-      objectReference: {fileID: 250484522}
-    - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114381844740129796, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
-      propertyPath: NextShaftTransform
-      value: 
-      objectReference: {fileID: 1590986063}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114961847829629112, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114961847829629112, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
   m_IsPrefabParent: 0
@@ -2466,12 +2461,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _financeManager: {fileID: 250484524}
-  _shaftManager: {fileID: 250484522}
   _price: 10
   _purchaseButton: {fileID: 1392060394}
   _actor: {fileID: 716872585}
   _purchaseText: {fileID: 1683351734}
   _skillText: {fileID: 728645359}
+  ShaftManager: {fileID: 250484522}
 --- !u!114 &635614357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5904,12 +5899,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _financeManager: {fileID: 250484524}
-  _shaftManager: {fileID: 250484522}
   _price: 10
   _purchaseButton: {fileID: 1961621786}
   _actor: {fileID: 1186014301}
   _purchaseText: {fileID: 1314656328}
   _skillText: {fileID: 202079346}
+  ShaftManager: {fileID: 250484522}
 --- !u!114 &1311394596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6788,11 +6783,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!4 &1590986063 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4560834781282996, guid: 25a367ce9dddbf546b289a5e6642c60a,
-    type: 2}
-  m_PrefabInternal: {fileID: 465705272}
 --- !u!1 &1591758050
 GameObject:
   m_ObjectHideFlags: 0

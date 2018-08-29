@@ -6,6 +6,6 @@ public class NextShaft : MonoBehaviour
 
     public void BuyShaft()
     {
-        Shaft.Manager.BuildNextShaft();
+        Shaft.ShaftManager.BuildNextShaft();
     }
 }

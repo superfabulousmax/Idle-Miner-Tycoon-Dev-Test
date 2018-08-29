@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class UpgradeActorUI : MonoBehaviour
 {
     [SerializeField] private FinanceManager _financeManager;
-    [SerializeField] private ShaftManager _shaftManager;
     [SerializeField] private float _price;
     [SerializeField] private Button _purchaseButton;
     [SerializeField] private Actor _actor;
     [SerializeField] private TextMeshProUGUI _purchaseText;
     [SerializeField] private TextMeshProUGUI _skillText;
+    
+    public ShaftManager ShaftManager;
 
     public FinanceManager FinanceManager
     {
@@ -18,11 +19,6 @@ public class UpgradeActorUI : MonoBehaviour
         set { _financeManager = value; }
     }
 
-    public ShaftManager ShaftManager
-    {
-        get { return _shaftManager; }
-        set { _shaftManager = value; }
-    }
 
     private void Start()
     {

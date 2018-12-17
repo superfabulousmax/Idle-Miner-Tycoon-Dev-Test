@@ -1304,6 +1304,7 @@ GameObject:
   - component: {fileID: 250484521}
   - component: {fileID: 250484522}
   - component: {fileID: 250484524}
+  - component: {fileID: 250484525}
   - component: {fileID: 250484523}
   m_Layer: 0
   m_Name: Managers
@@ -1336,6 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12b0878815a44448b20abc92951b470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mine: {fileID: 673718155}
   financeManager: {fileID: 250484524}
   elevator: {fileID: 716872585}
   settings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
@@ -1387,6 +1389,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &250484525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 250484520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801d985061d550e45b175b5713eee1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
+  mines: []
 --- !u!1 &291174627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,6 +2147,30 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1193031806833430, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588486247479418, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258117462392684, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312932592252048, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101482952958566, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998174510920762, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
   m_IsPrefabParent: 0
@@ -2658,6 +2697,49 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &673718154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 673718156}
+  - component: {fileID: 673718155}
+  m_Layer: 0
+  m_Name: Mine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &673718155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 673718154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4fb1aea08fcb44c9836ec6d9f4300a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mineManager: {fileID: 250484525}
+  startShaft: {fileID: 1682305121}
+  settings: {fileID: 11400000, guid: 2e27665f410c43a4b96659ef7f3efae8, type: 2}
+--- !u!4 &673718156
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 673718154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0927277, y: -2.8009002, z: 0.14669561}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &716872584
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,5 +16,4 @@ MonoBehaviour:
   ActorUpgradeSkillIncrement: 1.1
   ActorPriceIncrementPerShaft: 6
   ActorSkillIncrementPerShaft: 3
-  BaseActorSkill: 50
-  BaseActorPrice: 200
+  MineMaxAllowed: 2

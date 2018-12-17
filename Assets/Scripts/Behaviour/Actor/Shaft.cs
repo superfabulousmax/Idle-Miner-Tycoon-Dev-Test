@@ -22,4 +22,5 @@ public class Shaft : MonoBehaviour
             BuyShaftUI.gameObject.SetActive(false);
         }
     }
+
 }

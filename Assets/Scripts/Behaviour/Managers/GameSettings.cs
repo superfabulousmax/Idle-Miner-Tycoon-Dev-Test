@@ -10,4 +10,6 @@ public class GameSettings : ScriptableObject
 
     public float ActorPriceIncrementPerShaft;
     public float ActorSkillIncrementPerShaft;
+    // how many mines allowed to the player
+    public int MineMaxAllowed;
 }

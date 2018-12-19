@@ -13,3 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   Skill: 200
+  SkillMultiplier: 1

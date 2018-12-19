@@ -23,6 +23,7 @@ public abstract class GenericSingletonScriptableObject<T> : ScriptableObject whe
                 // could not find so create
                 _my_instance = CreateInstance<T>();
             }
+            DontDestroyOnLoad(_my_instance);
             return _my_instance;
         }
     }

@@ -1306,7 +1306,6 @@ GameObject:
   - component: {fileID: 250484524}
   - component: {fileID: 250484525}
   - component: {fileID: 250484523}
-  - component: {fileID: 250484526}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1339,11 +1338,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mine: {fileID: 673718155}
+  financeManager: {fileID: 250484524}
   elevator: {fileID: 716872585}
   settings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
   shaftPrefab: {fileID: 1998174510920762, guid: 25a367ce9dddbf546b289a5e6642c60a,
     type: 2}
   MaxShafts: 10
+  Shafts:
+  - {fileID: 1682305121}
 --- !u!114 &250484523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,20 +1402,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
   mines: []
---- !u!114 &250484526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 250484520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 889043b6e40274741bcf73cb8351482d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameSettings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
-  currentMine: {fileID: 673718155}
-  _minerSettings: {fileID: 11400000, guid: 15f2906efcac83b47805f8f29f42e8cb, type: 2}
 --- !u!1 &291174627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,6 +2047,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114571073995619396, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: _financeFinanceManager
+      value: 
+      objectReference: {fileID: 250484524}
     - target: {fileID: 114378204961917682, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: _financeManager
@@ -2069,22 +2062,17 @@ Prefab:
       propertyPath: ShaftManager
       value: 
       objectReference: {fileID: 250484522}
-    - target: {fileID: 114571073995619396, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: _financeFinanceManager
-      value: 
-      objectReference: {fileID: 250484524}
     - target: {fileID: 114477666749050574, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: ShaftManager
       value: 
       objectReference: {fileID: 250484522}
-    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+    - target: {fileID: 114862231387159720, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+    - target: {fileID: 114862231387159720, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -2099,32 +2087,12 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114862231387159720, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114862231387159720, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114338361420289688, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114338361420289688, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -2149,6 +2117,16 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949461005908324, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -2157,6 +2135,40 @@ Prefab:
     - target: {fileID: 114826831975056150, guid: 25a367ce9dddbf546b289a5e6642c60a,
         type: 2}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617582449585288, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193031806833430, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588486247479418, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258117462392684, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312932592252048, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101482952958566, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998174510920762, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2470,7 +2482,7 @@ GameObject:
   - component: {fileID: 635614356}
   m_Layer: 0
   m_Name: ElevatorUI
-  m_TagString: Elevator
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2491,8 +2503,8 @@ MonoBehaviour:
   _price: 10
   _purchaseButton: {fileID: 1392060394}
   _actor: {fileID: 716872585}
-  _upgradeAmount: {fileID: 1683351734}
-  _capacityAmount: {fileID: 728645359}
+  _purchaseText: {fileID: 1683351734}
+  _skillText: {fileID: 728645359}
   ShaftManager: {fileID: 250484522}
 --- !u!114 &635614357
 MonoBehaviour:
@@ -2712,11 +2724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4fb1aea08fcb44c9836ec6d9f4300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  financeManager: {fileID: 250484524}
-  shaftPrefab: {fileID: 0}
   mineManager: {fileID: 250484525}
   startShaft: {fileID: 1682305121}
-  shafts: []
+  settings: {fileID: 11400000, guid: 2e27665f410c43a4b96659ef7f3efae8, type: 2}
 --- !u!4 &673718156
 Transform:
   m_ObjectHideFlags: 0
@@ -5953,7 +5963,7 @@ GameObject:
   - component: {fileID: 1311394595}
   m_Layer: 0
   m_Name: WarehouseUI
-  m_TagString: Warehouse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5974,8 +5984,8 @@ MonoBehaviour:
   _price: 10
   _purchaseButton: {fileID: 1961621786}
   _actor: {fileID: 1186014301}
-  _upgradeAmount: {fileID: 1314656328}
-  _capacityAmount: {fileID: 202079346}
+  _purchaseText: {fileID: 1314656328}
+  _skillText: {fileID: 202079346}
   ShaftManager: {fileID: 250484522}
 --- !u!114 &1311394596
 MonoBehaviour:
@@ -6097,7 +6107,7 @@ GameObject:
   - component: {fileID: 1314656327}
   - component: {fileID: 1314656328}
   m_Layer: 0
-  m_Name: Upgrade Amount
+  m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

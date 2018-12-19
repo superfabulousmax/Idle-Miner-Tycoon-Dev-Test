@@ -6,4 +6,5 @@ using UnityEngine;
 public class MineData : GenericSingletonScriptableObject<MineData> {
     public double totalMoney;
     public int amountOfMineShafts;
+
 }

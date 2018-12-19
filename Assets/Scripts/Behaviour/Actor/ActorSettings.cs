@@ -5,4 +5,5 @@ public class ActorSettings : ScriptableObject
 {
     public float Speed;
     public float Skill;
+    public float SkillMultiplier;
 }

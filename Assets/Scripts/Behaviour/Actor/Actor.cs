@@ -7,8 +7,7 @@ public class Actor : MonoBehaviour
 
     public ActorSettings Settings;
     public Inventory Inventory;
-    public float SkillMultiplier = 1;
-
+    public float SkillMultiplier = 1; // need to save this state to recreate the skills
     private ActorBehaviour _behaviour;
     private bool _busy;
 
@@ -39,4 +38,6 @@ public class Actor : MonoBehaviour
     {
         SkillMultiplier *= settings.ActorUpgradeSkillIncrement;
     }
+
+
 }

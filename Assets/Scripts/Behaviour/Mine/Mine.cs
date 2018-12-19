@@ -3,30 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mine : MonoBehaviour {
-
+public class Mine : MonoBehaviour
+{
+    [SerializeField] private FinanceManager financeManager;
+    [SerializeField] private GameObject shaftPrefab;
     public MineManager mineManager;
     public Shaft startShaft;
     public List<Shaft> shafts;
-    public MineData settings;
+    public bool HasSavedMine { get; set; }
+    public FinanceManager GetFinanceManager() { return financeManager; }
 
-    void Start ()
+    void Start()
     {
-        settings = MineData.Instance;
-        shafts.Add(startShaft);
+        HasSavedMine = GameSaveDataController.GetMineState(this);
+        RebuilSavedMine();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
-    internal void UpdateMineData(double totalMoney)
+    private void RebuilSavedMine()
     {
-        Debug.Log("Update mine data" + totalMoney + " shafts" + shafts.Count);
-        settings.totalMoney = totalMoney;
-
-        settings.amountOfMineShafts = shafts.Count;
+        shafts.Add(startShaft);
+        if (HasSavedMine)
+        {
+            financeManager.SetTotalMoney(GameSaveDataController.mineSaveData.totalMoney);
+            if (GameSaveDataController.mineSaveData.shaftsInMine != null)
+            {
+                for (int s = 0; s < GameSaveDataController.mineSaveData.shaftsInMine.Count; s++)
+                {
+                    if(GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
+                    {
+                        shafts[s - 1].ShaftManager.ResimBuildNextShaft();
+                    }
+                }
+            }
+        }
     }
 }

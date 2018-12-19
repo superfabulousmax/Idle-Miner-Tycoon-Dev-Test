@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+
 public class FinanceManager : MonoBehaviour
 {
     [SerializeField] private double totalMoney;
@@ -12,6 +13,11 @@ public class FinanceManager : MonoBehaviour
     public double TotalMoney
     {
         get { return totalMoney; }
+    }
+    
+    public void SetTotalMoney(double value)
+    {
+       totalMoney = value;
     }
 
     public GameSettings Settings

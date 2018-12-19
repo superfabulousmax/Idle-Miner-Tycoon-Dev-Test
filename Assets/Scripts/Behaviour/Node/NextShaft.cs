@@ -2,10 +2,12 @@
 
 public class NextShaft : MonoBehaviour
 {
-    public Shaft Shaft;
+    public Shaft shaft;
 
     public void BuyShaft()
     {
-        Shaft.ShaftManager.BuildNextShaft();
+        shaft.ShaftManager.BuildNextShaft();
+        // record buyinf of next shaft
+        GameSaveDataController.SetBuyNextShaftState(shaft);
     }
 }

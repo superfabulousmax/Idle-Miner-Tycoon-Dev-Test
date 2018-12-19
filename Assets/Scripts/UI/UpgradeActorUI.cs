@@ -23,7 +23,12 @@ public class UpgradeActorUI : MonoBehaviour
 
     private void Start()
     {
-        var shaftLevel = ShaftManager.Shafts.Count;
+        if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
+        {
+            int rounds = GameSaveDataController.GetComponentRounds(gameObject.tag);
+            ResimUpgradeActor(rounds);
+        }
+         var shaftLevel = ShaftManager.Shafts.Count;
         _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
         _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
 
@@ -48,22 +53,26 @@ public class UpgradeActorUI : MonoBehaviour
         _purchaseButton.interactable = _price <= FinanceManager.TotalMoney;
         _upgradeAmount.text = Mathf.Round(_price).ToString();
         _capacityAmount.text = Mathf.Round(_actor.Settings.Skill * _actor.SkillMultiplier).ToString();
-        Shaft shaft = transform.parent.GetComponentInParent<Shaft>();
+        
 
-        if (shaft != null)
-        {
-            GameSaveDataController.SetShaftState(shaft);
-        }
-
-        if (GetGrandparentTag(transform) == "Warehouse")
+        if (gameObject.tag == "Warehouse")
         {
             GameSaveDataController.SetWarehouseState();
         }
 
-        if (GetGrandparentTag(transform) == "Elevator")
+        else if (gameObject.tag == "Elevator")
         {
 
             GameSaveDataController.SetElevatorState();
+        }
+
+        else if (GetGrandparentTag(this.transform) == "Shaft")
+        {
+            Shaft shaft = transform.parent.GetComponentInParent<Shaft>();
+            if (shaft != null)
+            {
+                GameSaveDataController.SetShaftState(shaft);
+            }
         }
     }
 
@@ -83,6 +92,17 @@ public class UpgradeActorUI : MonoBehaviour
 
     private string GetGrandparentTag(Transform child)
     {
+        Debug.Log("GetGrandparentTag for "+ child.name);
+        if(child.parent == null)
+        {
+            return "";
+        }
+
+        if(child.parent.parent == null)
+        {
+            return "";
+        }
+
         if (child.parent.parent)
         {
             return child.parent.parent.tag;

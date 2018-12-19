@@ -1413,6 +1413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameSettings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
   currentMine: {fileID: 673718155}
+  isDebug: 1
   _minerSettings: {fileID: 11400000, guid: 15f2906efcac83b47805f8f29f42e8cb, type: 2}
 --- !u!1 &291174627
 GameObject:
@@ -2713,7 +2714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   financeManager: {fileID: 250484524}
-  shaftPrefab: {fileID: 0}
   mineManager: {fileID: 250484525}
   startShaft: {fileID: 1682305121}
   shafts: []

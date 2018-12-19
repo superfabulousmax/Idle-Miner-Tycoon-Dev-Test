@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEditor;
+using System;
 
 /**
  * Saves the state of the game
@@ -16,6 +17,7 @@ public class GameSaveDataController : MonoBehaviour {
     private static AllSettings settings;
     [SerializeField] private GameSettings _gameSettings;
     [SerializeField] private Mine currentMine;
+    [SerializeField] private bool isDebug = true;
     [SerializeField] private ActorSettings _minerSettings;
     private static string saveKeyName = "MineData";
 
@@ -93,6 +95,14 @@ public class GameSaveDataController : MonoBehaviour {
         return 0;
     }
 
+    public static int GetComponentRounds(string tag)
+    {
+        if(tag == "Elevator") return mineSaveData.elevatorUpgradePressCount;
+        return mineSaveData.warehouseUpgradePressCount;
+    }
+
+
+
     public static void SetShaftState(Shaft shaft)
     {
         if (mineSaveData.shaftsInMine.Any(s => s.shaftId == shaft.name))
@@ -101,6 +111,20 @@ public class GameSaveDataController : MonoBehaviour {
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.shaftUpgradePressCount += 1;
             matchingShaftData.nextShaftUnlocked = true;
+        }
+
+        else
+        {
+            // Called from Upgrade Actor UI so press count
+            // should be set to one when creating new shaft save data.
+
+            var shaftData = new ShaftSaveData()
+            {
+                shaftId = shaft.name,
+                shaftUpgradePressCount = 1,
+                nextShaftUnlocked = false
+            };
+            mineSaveData.shaftsInMine.Add(shaftData);
         }
     }
 
@@ -125,19 +149,19 @@ public class GameSaveDataController : MonoBehaviour {
             mineSaveData.shaftsInMine = new List<ShaftSaveData>();
         }
 
-        if(mine.shafts != null)
-        {
-            int shaftCount = mine.shafts.Count;
-            for (int s = 0; s < shaftCount; s++)
-            {         
-                var shaftData = new ShaftSaveData()
-                {
-                    shaftId = mine.shafts[s].name
-                };
-                mineSaveData.shaftsInMine.RemoveAll(ch => ch.shaftId == shaftData.shaftId);
-                mineSaveData.shaftsInMine.Add(shaftData);
-            }
-        }
+        //if(mine.shafts != null)
+        //{
+        //    int shaftCount = mine.shafts.Count;
+        //    for (int s = 0; s < shaftCount; s++)
+        //    {         
+        //        var shaftData = new ShaftSaveData()
+        //        {
+        //            shaftId = mine.shafts[s].name
+        //        };
+        //        mineSaveData.shaftsInMine.RemoveAll(ch => ch.shaftId == shaftData.shaftId);
+        //        mineSaveData.shaftsInMine.Add(shaftData);
+        //    }
+        //}
     }
 
     public static bool GetMineState(Mine mine)
@@ -160,8 +184,12 @@ public class GameSaveDataController : MonoBehaviour {
 
     void OnGUI()
     {
-        //Fetch the PlayerPrefs settings and output them to the screen using Labels
-        GUI.Label(new Rect(50, 100, 200, 900), "Name : " + PlayerPrefs.GetString(saveKeyName));
+        if(isDebug)
+        {
+            //Fetch the PlayerPrefs settings and output them to the screen using Labels
+            GUI.Label(new Rect(50, 100, 200, 900), "Name : " + PlayerPrefs.GetString(saveKeyName));
+        }
+       
     }
 
 }

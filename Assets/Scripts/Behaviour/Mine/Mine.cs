@@ -6,7 +6,6 @@ using UnityEngine;
 public class Mine : MonoBehaviour
 {
     [SerializeField] private FinanceManager financeManager;
-    [SerializeField] private GameObject shaftPrefab;
     public MineManager mineManager;
     public Shaft startShaft;
     public List<Shaft> shafts;
@@ -31,7 +30,8 @@ public class Mine : MonoBehaviour
                 {
                     if(GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
                     {
-                        shafts[s - 1].ShaftManager.ResimBuildNextShaft();
+                        if(shafts.Count <= s)
+                            shafts[s - 1].ShaftManager.ResimBuildNextShaft();
                     }
                 }
             }

@@ -33,8 +33,10 @@ public class Mine : MonoBehaviour
             {
                 for (int s = 0; s < GameSaveDataController.mineSaveData.shaftsInMine.Count; s++)
                 {
-                    if(GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
+                    Debug.Log("s now " + s);
+                    if (GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
                     {
+                        Debug.Log("saved shafts "+s + " shaft count " + shafts.Count);
                         shafts[s].ShaftManager.ResimBuildNextShaft();
                     }
                 }

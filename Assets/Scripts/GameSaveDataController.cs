@@ -71,6 +71,7 @@ public class GameSaveDataController : MonoBehaviour {
     private static void ClearSavedData()
     {
         PlayerPrefs.DeleteKey(saveKeyName);
+        Debug.Log("Cleared player data for " + saveKeyName);
     }
 
 
@@ -86,6 +87,7 @@ public class GameSaveDataController : MonoBehaviour {
 
     public static void CreateStartShaftData(Shaft start)
     {
+        Debug.Log("creating START shaft data for " + start.name);
         var shaftData = new ShaftSaveData()
         {
             shaftId = start.name,
@@ -121,7 +123,6 @@ public class GameSaveDataController : MonoBehaviour {
             ShaftSaveData matchingShaftData = mineSaveData.shaftsInMine
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.shaftUpgradePressCount += 1;
-            matchingShaftData.nextShaftUnlocked = shaft.hasBoughtNextShaft;
         }
 
         else

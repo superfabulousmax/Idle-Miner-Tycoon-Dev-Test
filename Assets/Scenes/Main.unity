@@ -2160,6 +2160,11 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114555398643428524, guid: 25a367ce9dddbf546b289a5e6642c60a,
+        type: 2}
+      propertyPath: shaft
+      value: 
+      objectReference: {fileID: 1682305121}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25a367ce9dddbf546b289a5e6642c60a, type: 2}
   m_IsPrefabParent: 0

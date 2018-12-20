@@ -63,7 +63,7 @@ public class GameSaveDataController : MonoBehaviour {
         }
         if(mineSaveData == null)
         {
-            Debug.Log("Still nullll");
+            Debug.Log("Warning no mine save data found!!!");
         }
     }
 
@@ -73,7 +73,7 @@ public class GameSaveDataController : MonoBehaviour {
         PlayerPrefs.DeleteKey(saveKeyName);
     }
 
- 
+
     public static void SetBuyNextShaftState(Shaft shaft)
     {
         if (mineSaveData.shaftsInMine.Any(s => s.shaftId == shaft.name))
@@ -82,6 +82,17 @@ public class GameSaveDataController : MonoBehaviour {
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.nextShaftUnlocked = true;
         }
+    }
+
+    public static void CreateStartShaftData(Shaft start)
+    {
+        var shaftData = new ShaftSaveData()
+        {
+            shaftId = start.name,
+            shaftUpgradePressCount = 0,
+            nextShaftUnlocked = false
+        };
+        mineSaveData.shaftsInMine.Add(shaftData);
     }
 
     public static int GetShaftSaveData(Shaft shaft)
@@ -110,18 +121,18 @@ public class GameSaveDataController : MonoBehaviour {
             ShaftSaveData matchingShaftData = mineSaveData.shaftsInMine
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.shaftUpgradePressCount += 1;
-            matchingShaftData.nextShaftUnlocked = true;
+            matchingShaftData.nextShaftUnlocked = shaft.hasBoughtNextShaft;
         }
 
         else
         {
             // Called from Upgrade Actor UI so press count
             // should be set to one when creating new shaft save data.
-
+            Debug.Log("creating new shaft data for " + shaft.name);
             var shaftData = new ShaftSaveData()
             {
                 shaftId = shaft.name,
-                shaftUpgradePressCount = 1,
+                shaftUpgradePressCount = 0,
                 nextShaftUnlocked = false
             };
             mineSaveData.shaftsInMine.Add(shaftData);
@@ -171,7 +182,7 @@ public class GameSaveDataController : MonoBehaviour {
             return false;
         }
 
-        if (mineSaveData.hasSavedMine == true)
+        if (mineSaveData.hasSavedMine)
         {
             return true;
         }

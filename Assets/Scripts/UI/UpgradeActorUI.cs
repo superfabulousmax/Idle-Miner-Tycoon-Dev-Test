@@ -20,18 +20,17 @@ public class UpgradeActorUI : MonoBehaviour
         set { _financeManager = value; }
     }
 
-
     private void Start()
     {
+
+         var shaftLevel = ShaftManager.Shafts.Count;
+        _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
+        _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
         if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
         {
             int rounds = GameSaveDataController.GetComponentRounds(gameObject.tag);
             ResimUpgradeActor(rounds);
         }
-         var shaftLevel = ShaftManager.Shafts.Count;
-        _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
-        _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
-
         UpdateUI();
     }
 
@@ -45,15 +44,12 @@ public class UpgradeActorUI : MonoBehaviour
     public void UpgradeActor()
     {
         _actor.LevelUp(FinanceManager.Settings);
-
         FinanceManager.UpdateMoney(-_price);
         _price *= FinanceManager.Settings.ActorUpgradePriceIncrement;
         UpdateUI();
-
         _purchaseButton.interactable = _price <= FinanceManager.TotalMoney;
         _upgradeAmount.text = Mathf.Round(_price).ToString();
         _capacityAmount.text = Mathf.Round(_actor.Settings.Skill * _actor.SkillMultiplier).ToString();
-        
 
         if (gameObject.tag == "Warehouse")
         {
@@ -62,7 +58,6 @@ public class UpgradeActorUI : MonoBehaviour
 
         else if (gameObject.tag == "Elevator")
         {
-
             GameSaveDataController.SetElevatorState();
         }
 
@@ -81,16 +76,14 @@ public class UpgradeActorUI : MonoBehaviour
         for(int i = 0; i < rounds; i++)
         {
             _actor.LevelUp(FinanceManager.Settings);
-            _price *= FinanceManager.Settings.ActorUpgradePriceIncrement;
-            UpdateUI();
-            //_purchaseButton.interactable = _price <= FinanceManager.TotalMoney;
-            _upgradeAmount.text = Mathf.Round(_price).ToString();
-            _capacityAmount.text = Mathf.Round(_actor.Settings.Skill * _actor.SkillMultiplier).ToString();
+            _price *= FinanceManager.Settings.ActorUpgradePriceIncrement;    
         }
-        
+        UpdateUI();
+        _upgradeAmount.text = Mathf.Round(_price).ToString();
+        _capacityAmount.text = Mathf.Round(_actor.Settings.Skill * _actor.SkillMultiplier).ToString();
     }
 
-    private string GetGrandparentTag(Transform child)
+    public static string GetGrandparentTag(Transform child)
     {
         Debug.Log("GetGrandparentTag for "+ child.name);
         if(child.parent == null)
@@ -110,28 +103,4 @@ public class UpgradeActorUI : MonoBehaviour
         return "";
     }
 
-    //internal void SetUpgradePrice(float price)
-    //{
-    //    _price = price;
-    //}
-
-    //internal void SetSkill(float skill)
-    //{
-    //    _actor.SkillMultiplier = skill;
-    //}
-
-    //public float GetActorSkillMultiplierForUI()
-    //{
-    //    return _actor.SkillMultiplier;
-    //}
-
-    //public float GetUpgradePrice()
-    //{
-    //    return _price;
-    //}
-
-    //public float GetSkill()
-    //{
-    //    return _actor.Settings.Skill;
-    //}
 }

@@ -8,6 +8,7 @@ public class Shaft : MonoBehaviour
     
     public ShaftManager ShaftManager;
     public Transform NextShaftTransform;
+    public bool hasBoughtNextShaft;
 
     private void Start()
     {
@@ -18,7 +19,6 @@ public class Shaft : MonoBehaviour
     public void Initialize(Actor elevator, FinanceManager financeManager, int shaftsAmount)
     {
         elevator.AddNode(elevatorCollectNode);
-        
         BuyShaftUI.FinanceManager = financeManager;
         UpgradeActorUI.FinanceManager = financeManager;
         UpgradeActorUI.ShaftManager = ShaftManager;
@@ -28,41 +28,5 @@ public class Shaft : MonoBehaviour
             BuyShaftUI.gameObject.SetActive(false);
         }
     }
-
-    //public float GetShaftSkillMultiplier()
-    //{
-    //    return UpgradeActorUI.GetActorSkillMultiplierForUI();
-    //}
-
-    //public float GetNextShaftPrice()
-    //{
-    //    return UpgradeActorUI.FinanceManager.NextShaftPrice;
-    //}
-
-    //public void SetNextShaftPrice(float nextPrice)
-    //{
-    //    UpgradeActorUI.FinanceManager.NextShaftPrice = nextPrice;
-    //}
-
-    //public float GetUpgradePrice()
-    //{
-    //    return UpgradeActorUI.GetUpgradePrice();
-    //}
-
-
-    //public void SetUpgradePrice(float price)
-    //{
-    //    UpgradeActorUI.SetUpgradePrice(price);
-    //}
-
-    //public float GetSkill()
-    //{
-    //    return UpgradeActorUI.GetSkill();
-    //}
-
-    //public void SetSkill(float skill)
-    //{
-    //    UpgradeActorUI.SetSkill(skill);
-    //}
 
 }

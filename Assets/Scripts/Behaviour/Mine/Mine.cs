@@ -11,9 +11,13 @@ public class Mine : MonoBehaviour
     public List<Shaft> shafts;
     public bool HasSavedMine { get; set; }
     public FinanceManager GetFinanceManager() { return financeManager; }
+    private GameObject warehouse;
+    private GameObject elevator;
 
     void Start()
     {
+        warehouse = GameObject.FindGameObjectWithTag("Warehouse");
+        elevator = GameObject.FindGameObjectWithTag("Elevator");
         HasSavedMine = GameSaveDataController.GetMineState(this);
         RebuilSavedMine();
     }
@@ -23,18 +27,28 @@ public class Mine : MonoBehaviour
         shafts.Add(startShaft);
         if (HasSavedMine)
         {
-            financeManager.SetTotalMoney(GameSaveDataController.mineSaveData.totalMoney);
+            //GameSaveDataController.GetShaftSaveData(startShaft);
+            financeManager.SetTotalMoney(800000);// GameSaveDataController.mineSaveData.totalMoney);
             if (GameSaveDataController.mineSaveData.shaftsInMine != null)
             {
                 for (int s = 0; s < GameSaveDataController.mineSaveData.shaftsInMine.Count; s++)
                 {
                     if(GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
                     {
-                        if(shafts.Count <= s)
-                            shafts[s - 1].ShaftManager.ResimBuildNextShaft();
+                        shafts[s].ShaftManager.ResimBuildNextShaft();
                     }
                 }
             }
+            // need to first add shafts to work out upgrade and capacity per shaft level
+            if (warehouse != null)
+                warehouse.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.warehouseUpgradePressCount);
+            if (elevator != null)
+                elevator.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.elevatorUpgradePressCount);
+        }
+
+        else
+        {
+            GameSaveDataController.CreateStartShaftData(startShaft);
         }
     }
 }

@@ -108,6 +108,12 @@ public class GameSaveDataController : MonoBehaviour {
         return 0;
     }
 
+    public static int GetShaftPos(Shaft shaft)
+    {
+        return mineSaveData.shaftsInMine.IndexOf(mineSaveData.shaftsInMine
+            .Where(s => s.shaftId == shaft.name).First());
+    }
+
     public static int GetComponentRounds(string tag)
     {
         if(tag == "Elevator") return mineSaveData.elevatorUpgradePressCount;

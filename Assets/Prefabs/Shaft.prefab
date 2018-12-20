@@ -1319,6 +1319,7 @@ MonoBehaviour:
   _actor: {fileID: 114431457447267144}
   _upgradeAmount: {fileID: 114826831975056150}
   _capacityAmount: {fileID: 114617582449585288}
+  default_price: 10
   ShaftManager: {fileID: 0}
 --- !u!114 &114379848692043684
 MonoBehaviour:
@@ -1545,6 +1546,7 @@ MonoBehaviour:
   UpgradeActorUI: {fileID: 114378204961917682}
   ShaftManager: {fileID: 0}
   NextShaftTransform: {fileID: 4560834781282996}
+  hasBoughtNextShaft: 0
 --- !u!114 &114511740380264166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1608,7 +1610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8680ed75bb7710b4d9556bf1b1616d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shaft: {fileID: 0}
+  shaft: {fileID: 114477666749050574}
 --- !u!114 &114571073995619396
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -13,7 +13,8 @@ public class Shaft : MonoBehaviour
     private void Start()
     {
         int rounds = GameSaveDataController.GetShaftSaveData(this);
-        UpgradeActorUI.ResimUpgradeActor(rounds);
+        int pos = GameSaveDataController.GetShaftPos(this);
+        UpgradeActorUI.ResimUpgradeActor(rounds, pos);
     }
     
     public void Initialize(Actor elevator, FinanceManager financeManager, int shaftsAmount)

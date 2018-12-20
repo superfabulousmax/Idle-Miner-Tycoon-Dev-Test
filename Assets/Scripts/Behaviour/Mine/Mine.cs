@@ -22,35 +22,36 @@ public class Mine : MonoBehaviour
         RebuilSavedMine();
     }
 
-    private void RebuilSavedMine()
+    private bool RebuilSavedMine()
     {
         shafts.Add(startShaft);
         if (HasSavedMine)
         {
             //GameSaveDataController.GetShaftSaveData(startShaft);
-            financeManager.SetTotalMoney(800000);// GameSaveDataController.mineSaveData.totalMoney);
+            // default start money is 620.64
+            financeManager.SetTotalMoney(GameSaveDataController.mineSaveData.totalMoney);
             if (GameSaveDataController.mineSaveData.shaftsInMine != null)
             {
                 for (int s = 0; s < GameSaveDataController.mineSaveData.shaftsInMine.Count; s++)
                 {
-                    Debug.Log("s now " + s);
                     if (GameSaveDataController.mineSaveData.shaftsInMine[s].nextShaftUnlocked)
                     {
-                        Debug.Log("saved shafts "+s + " shaft count " + shafts.Count);
                         shafts[s].ShaftManager.ResimBuildNextShaft();
                     }
                 }
             }
             // need to first add shafts to work out upgrade and capacity per shaft level
             if (warehouse != null)
-                warehouse.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.warehouseUpgradePressCount);
+                warehouse.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.warehouseUpgradePressCount, 0);
             if (elevator != null)
-                elevator.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.elevatorUpgradePressCount);
+                elevator.GetComponent<UpgradeActorUI>().ResimUpgradeActor(GameSaveDataController.mineSaveData.elevatorUpgradePressCount, 0);
+            return true;
         }
 
         else
         {
             GameSaveDataController.CreateStartShaftData(startShaft);
+            return false;
         }
     }
 }

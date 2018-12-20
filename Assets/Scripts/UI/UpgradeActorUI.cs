@@ -11,7 +11,7 @@ public class UpgradeActorUI : MonoBehaviour
     [SerializeField] private Actor _actor;
     [SerializeField] private TextMeshProUGUI _upgradeAmount; // purchase
     [SerializeField] private TextMeshProUGUI _capacityAmount; // skill is capacity
-    
+    [SerializeField] private float default_price;// this is upgrade price
     public ShaftManager ShaftManager;
 
     public FinanceManager FinanceManager
@@ -22,14 +22,19 @@ public class UpgradeActorUI : MonoBehaviour
 
     private void Start()
     {
-
-         var shaftLevel = ShaftManager.Shafts.Count;
-        _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
-        _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
+        var shaftLevel = ShaftManager.Shafts.Count; // this should be shaftsInMine pos + 1 of shaft
         if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
         {
-            int rounds = GameSaveDataController.GetComponentRounds(gameObject.tag);
-            ResimUpgradeActor(rounds);
+            shaftLevel = 1;
+        }
+        _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
+        _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
+        int rounds = 0;
+
+        if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
+        {
+            rounds = GameSaveDataController.GetComponentRounds(gameObject.tag);
+            ResimUpgradeActor(rounds, shaftLevel);
         }
         UpdateUI();
     }
@@ -71,16 +76,27 @@ public class UpgradeActorUI : MonoBehaviour
         }
     }
 
-    public void ResimUpgradeActor(int rounds)
+    public void ResimUpgradeActor(int rounds, int pos)
     {
-        for(int i = 0; i < rounds; i++)
+        if (rounds == 0) return;
+        var shaftLevel = pos + 1; // this should be shaftsInMine pos + 1 of shaft
+        if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
+        {
+            shaftLevel = 1;
+        }
+
+       float temp_price = default_price;
+        temp_price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
+        _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
+        for (int i = 0; i < rounds; i++)
         {
             _actor.LevelUp(FinanceManager.Settings);
-            _price *= FinanceManager.Settings.ActorUpgradePriceIncrement;    
+            temp_price *= FinanceManager.Settings.ActorUpgradePriceIncrement;    
         }
         UpdateUI();
-        _upgradeAmount.text = Mathf.Round(_price).ToString();
+        _upgradeAmount.text = Mathf.Round(temp_price).ToString();
         _capacityAmount.text = Mathf.Round(_actor.Settings.Skill * _actor.SkillMultiplier).ToString();
+        _price = temp_price;
     }
 
     public static string GetGrandparentTag(Transform child)

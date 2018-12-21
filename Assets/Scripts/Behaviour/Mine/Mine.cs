@@ -14,16 +14,17 @@ public class Mine : MonoBehaviour
     private GameObject warehouse;
     private GameObject elevator;
 
-    void Start()
+    void Awake()
     {
         warehouse = GameObject.FindGameObjectWithTag("Warehouse");
         elevator = GameObject.FindGameObjectWithTag("Elevator");
         HasSavedMine = GameSaveDataController.GetMineState(this);
-        RebuilSavedMine();
+        RebuildSavedMine();
     }
 
-    private bool RebuilSavedMine()
+    private bool RebuildSavedMine()
     {
+        Debug.Log("RebuildSavedMine");
         shafts.Add(startShaft);
         if (HasSavedMine)
         {

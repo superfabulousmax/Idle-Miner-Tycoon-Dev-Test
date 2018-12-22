@@ -9,6 +9,13 @@ public class ShaftManager : MonoBehaviour
     [SerializeField] private GameObject shaftPrefab;
     public int MaxShafts;
 
+    private void Start()
+    {
+        if(mine == null)
+        {
+            Debug.Log("Mine not found");
+        }
+    }
     public void BuildNextShaft()
     {
         var position = mine.shafts[mine.shafts.Count - 1].NextShaftTransform.position;

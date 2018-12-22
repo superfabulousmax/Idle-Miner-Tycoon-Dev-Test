@@ -3,33 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using System;
 
 /**
  * Saves the state of the game
+ * Serves as a singleton for saving state between scene loads
  * @author Sinead Urisohn
  * 
  * */
 public class GameSaveDataController : MonoBehaviour {
 
-    public static MineSaveData mineSaveData;
-    // @todo mineractor UI upgrade and capacity save
-    private static AllSettings settings;
+    public static GameSaveDataController uniqueInstance;
+    public static MineSaveData[] mineSaveData;
     [SerializeField] private GameSettings _gameSettings;
-    [SerializeField] private Mine currentMine;
-    [SerializeField] private bool isDebug = true;
-    [SerializeField] private ActorSettings _minerSettings;
-    private static string saveKeyName = "MineData";
+    [SerializeField] private bool isDebug = false;
+    private static string[] _saveKeyNames;
+    public static string[] newMineSceneName = { "Main", "Second Mine" };
+    public static string saveKeyName;
+    public static int currentMineIndex = 0;
+    public static int totalNumberOfMines = 1;
+    private static float startMoney;
+
+    public static bool HasController()
+    {
+        return uniqueInstance != null;
+    }
 
     private void Awake()
     {
-        var allSettings = new AllSettings()
+        //singleton behaviour
+        if(uniqueInstance != null)
         {
-            gameSettings = _gameSettings,
-            minerSettings = _minerSettings
-        };
+            // it already exists
+            // so destroy this one
+            Destroy(gameObject);
+        }
 
+        else
+        {
+            // create a new one
+            uniqueInstance = this;
+            // don't destroy when loading a new scene
+            DontDestroyOnLoad(gameObject);
+        }
+        startMoney = _gameSettings.startMoney;
+        _saveKeyNames = _gameSettings.saveDataNames;
+        UpdateSaveInfo();
+        mineSaveData = new MineSaveData[_saveKeyNames.Length];
         LoadSavedData();
+    }
+
+    public static void UpdateSaveInfo()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == newMineSceneName[0])
+        {
+            saveKeyName = _saveKeyNames[0];
+            currentMineIndex = 0;
+        }
+
+        if (currentScene.name == newMineSceneName[1])
+        {
+            saveKeyName = _saveKeyNames[1];
+            currentMineIndex = 1;
+        }
     }
 
     private void OnDestroy()
@@ -42,9 +80,9 @@ public class GameSaveDataController : MonoBehaviour {
         SaveGameData();
     }
 
-    public void SaveGameData()
+    public static void SaveGameData()
     {
-        var playerPrefData = JsonUtility.ToJson(mineSaveData);
+        var playerPrefData = JsonUtility.ToJson(mineSaveData[currentMineIndex]);
         PlayerPrefs.SetString(saveKeyName, playerPrefData);
     }
 
@@ -54,32 +92,46 @@ public class GameSaveDataController : MonoBehaviour {
     public void LoadSavedData()
     {
         var playerPrefData = PlayerPrefs.GetString(saveKeyName);
-        mineSaveData = JsonUtility.FromJson<MineSaveData>(playerPrefData);
+        mineSaveData[currentMineIndex] = JsonUtility.FromJson<MineSaveData>(playerPrefData);
         
-        if(mineSaveData == null)
+        if(mineSaveData[currentMineIndex] == null)
         {
             Debug.Log("No saved data\nCreating new saved data in key: " + saveKeyName);
-            mineSaveData = new MineSaveData();
+            MineSaveData newMineSaveData = new MineSaveData();
+            mineSaveData[currentMineIndex] = newMineSaveData;
         }
+
         if(mineSaveData == null)
         {
             Debug.Log("Warning no mine save data found!!!");
         }
     }
 
+    public static void CreateNewMineData(Mine mine, Shaft startShaft)
+    {
+        MineSaveData newMineSaveData = new MineSaveData();
+        mineSaveData[currentMineIndex] = newMineSaveData;
+        mineSaveData[currentMineIndex].hasSavedMine = true;
+        mineSaveData[currentMineIndex].mineId = mine.name;
+        mineSaveData[currentMineIndex].totalMoney = startMoney;
+        CreateStartShaftData(startShaft);
+
+    }
+
     [MenuItem("Tools/Clear PlayerPrefs")]
     private static void ClearSavedData()
     {
-        PlayerPrefs.DeleteKey(saveKeyName);
-        Debug.Log("Cleared player data for " + saveKeyName);
+        PlayerPrefs.DeleteAll();
+        Debug.Log("Cleared all saved data");
     }
+
 
 
     public static void SetBuyNextShaftState(Shaft shaft)
     {
-        if (mineSaveData.shaftsInMine.Any(s => s.shaftId == shaft.name))
+        if (mineSaveData[currentMineIndex].shaftsInMine.Any(s => s.shaftId == shaft.name))
         {
-            ShaftSaveData matchingShaftData = mineSaveData.shaftsInMine
+            ShaftSaveData matchingShaftData = mineSaveData[currentMineIndex].shaftsInMine
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.nextShaftUnlocked = true;
         }
@@ -87,21 +139,21 @@ public class GameSaveDataController : MonoBehaviour {
 
     public static void CreateStartShaftData(Shaft start)
     {
-        Debug.Log("creating START shaft data for " + start.name);
+
         var shaftData = new ShaftSaveData()
         {
             shaftId = start.name,
             shaftUpgradePressCount = 0,
             nextShaftUnlocked = false
         };
-        mineSaveData.shaftsInMine.Add(shaftData);
+        mineSaveData[currentMineIndex].shaftsInMine.Add(shaftData);
     }
 
     public static int GetShaftSaveData(Shaft shaft)
     {
-        if (mineSaveData.shaftsInMine.Any(s => s.shaftId == shaft.name))
+        if (mineSaveData[currentMineIndex].shaftsInMine.Any(s => s.shaftId == shaft.name))
         {
-            ShaftSaveData matchingShaftData = mineSaveData.shaftsInMine
+            ShaftSaveData matchingShaftData = mineSaveData[currentMineIndex].shaftsInMine
             .Where(s => s.shaftId == shaft.name).First();
            return matchingShaftData.shaftUpgradePressCount;
         }
@@ -110,23 +162,23 @@ public class GameSaveDataController : MonoBehaviour {
 
     public static int GetShaftPos(Shaft shaft)
     {
-        return mineSaveData.shaftsInMine.IndexOf(mineSaveData.shaftsInMine
+        return mineSaveData[currentMineIndex].shaftsInMine.IndexOf(mineSaveData[currentMineIndex].shaftsInMine
             .Where(s => s.shaftId == shaft.name).First());
     }
 
     public static int GetComponentRounds(string tag)
     {
-        if(tag == "Elevator") return mineSaveData.elevatorUpgradePressCount;
-        return mineSaveData.warehouseUpgradePressCount;
+        if(tag == "Elevator") return mineSaveData[currentMineIndex].elevatorUpgradePressCount;
+        return mineSaveData[currentMineIndex].warehouseUpgradePressCount;
     }
 
 
 
     public static void SetShaftState(Shaft shaft)
     {
-        if (mineSaveData.shaftsInMine.Any(s => s.shaftId == shaft.name))
+        if (mineSaveData[currentMineIndex].shaftsInMine.Any(s => s.shaftId == shaft.name))
         {
-            ShaftSaveData matchingShaftData = mineSaveData.shaftsInMine
+            ShaftSaveData matchingShaftData = mineSaveData[currentMineIndex].shaftsInMine
             .Where(s => s.shaftId == shaft.name).First();
             matchingShaftData.shaftUpgradePressCount += 1;
         }
@@ -142,56 +194,43 @@ public class GameSaveDataController : MonoBehaviour {
                 shaftUpgradePressCount = 0,
                 nextShaftUnlocked = false
             };
-            mineSaveData.shaftsInMine.Add(shaftData);
+            mineSaveData[currentMineIndex].shaftsInMine.Add(shaftData);
         }
     }
 
     public static void SetWarehouseState()
     {
-        mineSaveData.warehouseUpgradePressCount += 1;
+        mineSaveData[currentMineIndex].warehouseUpgradePressCount += 1;
     }
 
     public static void SetElevatorState()
     {
-        mineSaveData.elevatorUpgradePressCount += 1;
+        mineSaveData[currentMineIndex].elevatorUpgradePressCount += 1;
     }
 
     public static void SetMineState(Mine mine, double money, bool hasSavedMine)
     {
-        mineSaveData.mineId = mine.name;
-        mineSaveData.totalMoney = money;
-        mineSaveData.hasSavedMine = hasSavedMine;
+        mineSaveData[currentMineIndex].mineId = mine.name;
+        mineSaveData[currentMineIndex].totalMoney = money;
+        mineSaveData[currentMineIndex].hasSavedMine = hasSavedMine;
 
-        if (mineSaveData.shaftsInMine == null)
+        if (mineSaveData[currentMineIndex].shaftsInMine == null)
         {
-            mineSaveData.shaftsInMine = new List<ShaftSaveData>();
+            mineSaveData[currentMineIndex].shaftsInMine = new List<ShaftSaveData>();
         }
-
-        //if(mine.shafts != null)
-        //{
-        //    int shaftCount = mine.shafts.Count;
-        //    for (int s = 0; s < shaftCount; s++)
-        //    {         
-        //        var shaftData = new ShaftSaveData()
-        //        {
-        //            shaftId = mine.shafts[s].name
-        //        };
-        //        mineSaveData.shaftsInMine.RemoveAll(ch => ch.shaftId == shaftData.shaftId);
-        //        mineSaveData.shaftsInMine.Add(shaftData);
-        //    }
-        //}
     }
 
     public static bool GetMineState(Mine mine)
     {
-        if (mineSaveData.shaftsInMine == null)
-        {
-            return false;
-        }
-
-        if (mineSaveData.hasSavedMine)
+        Debug.Log("GetMineState"+_saveKeyNames[currentMineIndex]);
+        if (mineSaveData[currentMineIndex].hasSavedMine)
         {
             return true;
+        }
+
+        if (mineSaveData[currentMineIndex].shaftsInMine == null)
+        {
+            return false;
         }
 
         else

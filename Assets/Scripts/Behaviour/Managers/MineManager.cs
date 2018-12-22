@@ -10,6 +10,5 @@ public class MineManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         mines = new List<Mine>();
-        mines.Capacity = settings.MineMaxAllowed;
     }
 }

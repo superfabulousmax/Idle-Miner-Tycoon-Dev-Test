@@ -10,9 +10,7 @@ public class NextShaft : MonoBehaviour
         {
             if (UpgradeActorUI.GetGrandparentTag(this.transform) == "Shaft")
             {
-                
                 shaft = transform.parent.parent.GetComponentInParent<Shaft>();
-                Debug.Log("Found shaft tag "+ shaft == null);
             }
         }
 

@@ -10,11 +10,6 @@ public class Shaft : MonoBehaviour
     public Transform NextShaftTransform;
     public bool hasBoughtNextShaft;
 
-    private void Start()
-    {
-
-    }
-    
     public void Initialize(Actor elevator, FinanceManager financeManager, int shaftsAmount)
     {
         elevator.AddNode(elevatorCollectNode);

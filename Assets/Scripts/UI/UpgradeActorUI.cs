@@ -28,7 +28,6 @@ public class UpgradeActorUI : MonoBehaviour
             shaftLevel = 1;
         }
         _price *= Mathf.Pow(FinanceManager.Settings.ActorPriceIncrementPerShaft, shaftLevel);
-        Debug.Log("sdsdsd" + FinanceManager.Settings.ActorSkillIncrementPerShaft);
         _actor.SkillMultiplier = Mathf.Pow(FinanceManager.Settings.ActorSkillIncrementPerShaft, shaftLevel);
         if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
         {
@@ -85,7 +84,6 @@ public class UpgradeActorUI : MonoBehaviour
     public void ResimUpgradeActor(int rounds, int pos)
     {
         var shaftLevel = pos + 1; // this should be shaftsInMine pos + 1 of shaft to reflect list size at this period
-        Debug.Log("shaftLevel " + gameObject.name + " POS " + pos);
         if (gameObject.tag == "Warehouse" || gameObject.tag == "Elevator")
         {
             shaftLevel = 1;
@@ -107,7 +105,6 @@ public class UpgradeActorUI : MonoBehaviour
 
     public static string GetGrandparentTag(Transform child)
     {
-        Debug.Log("GetGrandparentTag for "+ child.name);
         if(child.parent == null)
         {
             return "";

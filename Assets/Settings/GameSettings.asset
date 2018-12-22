@@ -16,4 +16,7 @@ MonoBehaviour:
   ActorUpgradeSkillIncrement: 1.1
   ActorPriceIncrementPerShaft: 6
   ActorSkillIncrementPerShaft: 3
-  MineMaxAllowed: 2
+  saveDataNames:
+  - MineData1
+  - MineData2
+  startMoney: 1000

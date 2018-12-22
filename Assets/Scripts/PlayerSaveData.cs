@@ -20,6 +20,7 @@ public class MineSaveData
         elevatorUpgradePressCount = 0;
         warehouseUpgradePressCount = 0;
         shaftsInMine = new List<ShaftSaveData>();
+        nextMineUnlocked = false;
     }
     public bool hasSavedMine = false;
     public string mineId = "Mine";
@@ -27,6 +28,7 @@ public class MineSaveData
     public int elevatorUpgradePressCount = 0;
     public int warehouseUpgradePressCount = 0;
     public List<ShaftSaveData> shaftsInMine = new List<ShaftSaveData>(); // each mine needs a list of shaft saved data to rebuild the mine
+    public bool nextMineUnlocked = false;
 }
 
 [System.Serializable]

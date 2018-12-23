@@ -20,7 +20,6 @@ public class Mine : MonoBehaviour
 
     void Awake()
     {
-       
         if (mineNumber + 1 < _gameSettings.saveDataNames.Length)
             canBuyNewMine = true;
         gameObject.name += mineNumber;
@@ -61,7 +60,6 @@ public class Mine : MonoBehaviour
 
         else
         {
-            //GameSaveDataController.CreateStartShaftData(startShaft);
             GameSaveDataController.CreateNewMineData(gameObject.GetComponent<Mine>(), startShaft);
             GameSaveDataController.mineSaveData[mineNumber].hasSavedMine = true;
             return false;

@@ -52,7 +52,7 @@ public class ShaftManager : MonoBehaviour
 
     private void Update()
     {
-        GameSaveDataController.SetMineState(mine, mine.GetFinanceManager().TotalMoney, true);
+        GameSaveDataController.SetMineState(mine, mine.GetFinanceManager().TotalMoney, true, mine.hasNextMine);
     }
 
     public List<Shaft> Shafts

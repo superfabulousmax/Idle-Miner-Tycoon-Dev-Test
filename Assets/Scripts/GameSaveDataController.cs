@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.SceneManagement;
 using System;
 
 /**
  * Saves the state of the game
- * Serves as a singleton for saving state between scene loads
+ * Uses player prefs to see if there is game data
+ * Otherwise it creates new game data and saves there
+ * Currently only supports saving of 2 mines
  * @author Sinead Urisohn
  * 
  * */
 public class GameSaveDataController : MonoBehaviour {
 
-    public static GameSaveDataController uniqueInstance;
     public static MineSaveData[] mineSaveData;
     [SerializeField] private GameSettings _gameSettings;
     [SerializeField] private bool isDebug = false;
@@ -25,28 +26,8 @@ public class GameSaveDataController : MonoBehaviour {
     public static int totalNumberOfMines = 1;
     private static float startMoney;
 
-    public static bool HasController()
-    {
-        return uniqueInstance != null;
-    }
-
     private void Awake()
     {
-        //singleton behaviour
-        if(uniqueInstance != null)
-        {
-            // it already exists
-            // so destroy this one
-            Destroy(gameObject);
-        }
-
-        else
-        {
-            // create a new one
-            uniqueInstance = this;
-            // don't destroy when loading a new scene
-            DontDestroyOnLoad(gameObject);
-        }
         startMoney = _gameSettings.startMoney;
         _saveKeyNames = _gameSettings.saveDataNames;
         UpdateSaveInfo();
@@ -80,7 +61,7 @@ public class GameSaveDataController : MonoBehaviour {
         SaveGameData();
     }
 
-    public static void SaveGameData()
+    public void SaveGameData()
     {
         var playerPrefData = JsonUtility.ToJson(mineSaveData[currentMineIndex]);
         PlayerPrefs.SetString(saveKeyName, playerPrefData);
@@ -99,6 +80,7 @@ public class GameSaveDataController : MonoBehaviour {
             Debug.Log("No saved data\nCreating new saved data in key: " + saveKeyName);
             MineSaveData newMineSaveData = new MineSaveData();
             mineSaveData[currentMineIndex] = newMineSaveData;
+            SaveGameData();
         }
 
         if(mineSaveData == null)
@@ -115,17 +97,17 @@ public class GameSaveDataController : MonoBehaviour {
         mineSaveData[currentMineIndex].mineId = mine.name;
         mineSaveData[currentMineIndex].totalMoney = startMoney;
         CreateStartShaftData(startShaft);
+        var playerPrefData = JsonUtility.ToJson(mineSaveData[currentMineIndex]);
+        PlayerPrefs.SetString(saveKeyName, playerPrefData);
 
     }
 
-    [MenuItem("Tools/Clear PlayerPrefs")]
-    private static void ClearSavedData()
-    {
-        PlayerPrefs.DeleteAll();
-        Debug.Log("Cleared all saved data");
-    }
-
-
+    //[MenuItem("Tools/Clear PlayerPrefs")]
+    //private static void ClearSavedData()
+    //{
+    //    PlayerPrefs.DeleteAll();
+    //    Debug.Log("Cleared all saved data");
+    //}
 
     public static void SetBuyNextShaftState(Shaft shaft)
     {
@@ -208,12 +190,12 @@ public class GameSaveDataController : MonoBehaviour {
         mineSaveData[currentMineIndex].elevatorUpgradePressCount += 1;
     }
 
-    public static void SetMineState(Mine mine, double money, bool hasSavedMine)
+    public static void SetMineState(Mine mine, double money, bool hasSavedMine, bool hasNextMine)
     {
         mineSaveData[currentMineIndex].mineId = mine.name;
         mineSaveData[currentMineIndex].totalMoney = money;
         mineSaveData[currentMineIndex].hasSavedMine = hasSavedMine;
-
+        mineSaveData[currentMineIndex].nextMineUnlocked = hasNextMine;
         if (mineSaveData[currentMineIndex].shaftsInMine == null)
         {
             mineSaveData[currentMineIndex].shaftsInMine = new List<ShaftSaveData>();

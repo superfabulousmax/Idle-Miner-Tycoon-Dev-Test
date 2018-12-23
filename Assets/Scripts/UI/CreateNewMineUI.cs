@@ -10,13 +10,19 @@ public class CreateNewMineUI : MonoBehaviour {
     [SerializeField] private Mine mine;
     [SerializeField] private float _price;
 
+    private void Save()
+    {
+        var playerPrefData = JsonUtility.ToJson(GameSaveDataController.mineSaveData[GameSaveDataController.currentMineIndex]);
+        PlayerPrefs.SetString(GameSaveDataController.saveKeyName, playerPrefData);
+    }
 
     private void Update()
     {
         
         if(Input.GetKeyDown(KeyCode.N)) // to go to next mine from current mine
         {
-            if(mine.hasNextMine)
+            PlayerPrefs.Save();
+            if (mine.hasNextMine)
             {
                 if (GameSaveDataController.currentMineIndex == GameSaveDataController.totalNumberOfMines)
                     GameSaveDataController.currentMineIndex = 0;
@@ -28,7 +34,8 @@ public class CreateNewMineUI : MonoBehaviour {
             {
                 GameSaveDataController.currentMineIndex = 0;
             }
-            GameSaveDataController.SaveGameData();
+
+            Save();
             SceneManager.LoadScene(GameSaveDataController.newMineSceneName[GameSaveDataController.currentMineIndex]);
             GameSaveDataController.UpdateSaveInfo();
         }
@@ -41,7 +48,6 @@ public class CreateNewMineUI : MonoBehaviour {
             {
                 if(_price <= _financeFinanceManager.TotalMoney)
                 {
-                    Debug.Log("Bought new mine for mine " + mine.name);
                     GameSaveDataController.mineSaveData[GameSaveDataController.currentMineIndex].nextMineUnlocked = true;
                     mine.hasNextMine = true;
 

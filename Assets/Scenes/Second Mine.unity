@@ -2721,6 +2721,7 @@ MonoBehaviour:
   startShaft: {fileID: 1682305121}
   shafts: []
   canBuyNewMine: 0
+  hasNextMine: 0
 --- !u!4 &673718156
 Transform:
   m_ObjectHideFlags: 0
@@ -3884,6 +3885,60 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 852649362}
+--- !u!1 &863756543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 863756545}
+  - component: {fileID: 863756544}
+  - component: {fileID: 863756546}
+  m_Layer: 0
+  m_Name: Game Save Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &863756544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863756543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889043b6e40274741bcf73cb8351482d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameSettings: {fileID: 11400000, guid: 4032399eb3cb76346a2d2aa0835262f7, type: 2}
+  isDebug: 1
+--- !u!4 &863756545
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863756543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9089153, y: -0.6757235, z: -0.048661478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &863756546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863756543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459637c2897e30747bbe548f908ec48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &865215382
 GameObject:
   m_ObjectHideFlags: 0

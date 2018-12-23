@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct AllSettings
-{
-    public GameSettings gameSettings;
-    public ActorSettings minerSettings;
-}
-
+/**
+ * This to save game data to Playerprefs
+ **/
 [System.Serializable]
 public class MineSaveData
 {
@@ -16,7 +12,7 @@ public class MineSaveData
     {
         hasSavedMine = false;
         mineId = "Mine";
-        totalMoney = 0;
+        totalMoney = 620.64;
         elevatorUpgradePressCount = 0;
         warehouseUpgradePressCount = 0;
         shaftsInMine = new List<ShaftSaveData>();

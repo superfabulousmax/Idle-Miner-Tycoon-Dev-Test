@@ -13,9 +13,14 @@ Press s to write to save data.
 1. It’s possible to start a second mine
 2. It’s possible to switch back and forth between both mines
 3. When switching to a mine, it must be possible to continue from the last state
+
     a. The same amount of “money” is still available as before in the mine
+    
     b. The amount of mine shafts unlocked is still the same as before
+    
     c. The upgrade levels are still the same as before
+    
+    
    
 ~~~~~ Code design decisions
 

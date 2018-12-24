@@ -22,7 +22,7 @@ Press s to write to save data.
     
     
    
-~~~~~ Code design decisions
+Code design decisions
 
     I favored composition over inheritance and tried to make things as decoupled as I could,
     so that I would only have to change things in one file if I were to make change i.e.
